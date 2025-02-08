@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const BudgetSlider = () => {
   const [totalBudget, setTotalBudget] = useState(5000);
+  const [showSummary, setShowSummary] = useState(true);
   const [categories, setCategories] = useState([
     { name: 'Housing', emoji: '🏠', percentage: 35, amount: 1750 },
     { name: 'Food', emoji: '🍳', percentage: 15, amount: 750 },
@@ -125,8 +126,14 @@ const BudgetSlider = () => {
       </div>
 
       <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <h3 className="text-lg font-medium mb-4 text-gray-800">Summary</h3>
-        <div className="space-y-4">
+        <button 
+          onClick={() => setShowSummary(!showSummary)}
+          className="w-full flex items-center justify-between text-lg font-medium mb-4 text-gray-800 hover:text-gray-600"
+        >
+          <span>Summary</span>
+          <span className="text-xl">{showSummary ? '▼' : '▲'}</span>
+        </button>
+        <div className={`space-y-4 overflow-hidden transition-all duration-300 ease-in-out ${showSummary ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
           {categories.map((category, index) => (
             <div key={index} className="flex justify-between items-center py-2">
               <span className="text-base text-gray-700">
